@@ -19,7 +19,7 @@
   --gray-900:#1D2521; --gray-700:#454C48; --gray-500:#7C837F; --gray-400:#A7ADA9;
   --gray-200:#E6E9E7; --gray-100:#F1F3F1; --bg:#D7DFDA; --card:#FFFFFF;
   --shadow:0 8px 28px -12px rgba(14,51,34,.28); --shadow-sm:0 3px 12px -5px rgba(14,51,34,.22);
-  --radius:18px; --header-h:92px;
+  --radius:18px; --header-h:180px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--gray-900);
@@ -76,19 +76,19 @@ header{position:sticky;top:0;z-index:50;
 .panel.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* FILTER BAR */
-.filterbar{position:sticky;top:calc(var(--header-h) - 2px);z-index:35;display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;
-  background:rgba(255,255,255,.93);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-radius:var(--radius);
-  padding:16px 20px;box-shadow:0 8px 20px -9px rgba(14,51,34,.32);margin:0 0 22px;border:1px solid rgba(255,255,255,.7)}
-.filter-title{display:flex;align-items:center;gap:9px;font-family:'Poppins';font-weight:600;color:var(--green-800);font-size:14px;margin-right:6px}
-.filter-title .bar{width:4px;height:20px;border-radius:3px;background:linear-gradient(var(--green-500),var(--burg-500))}
+/* FILTROS INTEGRADOS EN EL HEADER */
+.header-filters{max-width:1440px;margin:0 auto;padding:0 26px 15px}
+.filterbar{display:none;align-items:flex-end;gap:14px 18px;flex-wrap:wrap;padding-top:13px;border-top:1px solid rgba(255,255,255,.16)}
+.filterbar.active{display:flex}
+.filter-title{display:flex;align-items:center;gap:9px;font-family:'Poppins';font-weight:600;color:#fff;font-size:14px;margin-right:4px}
+.filter-title .bar{width:4px;height:20px;border-radius:3px;background:linear-gradient(var(--gold-soft),var(--gold))}
 .fgroup{display:flex;flex-direction:column;gap:5px}
-.fgroup label{font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.6px;padding-left:2px}
-.fgroup select{appearance:none;background:var(--gray-100) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%237C837F' stroke-width='2.2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 12px center;
-  border:1.5px solid var(--gray-200);border-radius:10px;padding:9px 32px 9px 13px;font-family:'Inter';font-size:13.5px;font-weight:500;color:var(--gray-900);cursor:pointer;min-width:120px;transition:.2s}
-.fgroup select:hover{border-color:var(--green-300)}
-.fgroup select:focus{outline:none;border-color:var(--green-500);box-shadow:0 0 0 3px rgba(30,107,71,.14)}
-.btn-clear{margin-left:auto;background:var(--burg-100);color:var(--burg-600);border:1px solid var(--burg-300);
+.fgroup label{font-size:11px;font-weight:600;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.6px;padding-left:2px}
+.fgroup select{appearance:none;background:rgba(255,255,255,.96) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%237C837F' stroke-width='2.2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border:1.5px solid rgba(255,255,255,.28);border-radius:10px;padding:9px 32px 9px 13px;font-family:'Inter';font-size:13.5px;font-weight:500;color:var(--gray-900);cursor:pointer;min-width:118px;transition:.2s}
+.fgroup select:hover{border-color:var(--gold-soft)}
+.fgroup select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.28)}
+.btn-clear{margin-left:auto;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.32);
   padding:9px 15px;border-radius:10px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'Poppins';transition:.2s;height:39px}
 .btn-clear:hover{background:var(--burg-500);color:#fff;border-color:var(--burg-500)}
 
@@ -164,6 +164,27 @@ footer b{color:var(--green-600)}
       </button>
     </div>
   </div>
+  <div class="header-filters">
+    <div class="filterbar fbar active" id="fb-volumen">
+      <div class="filter-title"><span class="bar"></span>Filtros</div>
+      <div class="fgroup"><label>Año</label><select id="v-ano"></select></div>
+      <div class="fgroup"><label>Mes</label><select id="v-mes"></select></div>
+      <div class="fgroup"><label>Día</label><select id="v-dia"></select></div>
+      <button class="btn-clear" id="v-clear">Limpiar filtros</button>
+    </div>
+    <div class="filterbar fbar" id="fb-percapita">
+      <div class="filter-title"><span class="bar"></span>Filtros</div>
+      <div class="fgroup"><label>Año</label><select id="p-ano"></select></div>
+      <div class="fgroup"><label>Mes</label><select id="p-mes"></select></div>
+      <button class="btn-clear" id="p-clear">Limpiar filtros</button>
+    </div>
+    <div class="filterbar fbar" id="fb-tiempos">
+      <div class="filter-title"><span class="bar"></span>Filtros</div>
+      <div class="fgroup"><label>Año</label><select id="t-ano"></select></div>
+      <div class="fgroup"><label>Mes</label><select id="t-mes"></select></div>
+      <button class="btn-clear" id="t-clear">Limpiar filtros</button>
+    </div>
+  </div>
 </header>
 
 <div class="layout">
@@ -172,13 +193,6 @@ footer b{color:var(--green-600)}
 
   <!-- ================= VOLUMEN ================= -->
   <section class="panel active" id="panel-volumen">
-    <div class="filterbar">
-      <div class="filter-title"><span class="bar"></span>Filtros</div>
-      <div class="fgroup"><label>Año</label><select id="v-ano"></select></div>
-      <div class="fgroup"><label>Mes</label><select id="v-mes"></select></div>
-      <div class="fgroup"><label>Día</label><select id="v-dia"></select></div>
-      <button class="btn-clear" id="v-clear">Limpiar filtros</button>
-    </div>
     <div class="kpi-grid" id="v-kpi"></div>
     <div class="grid">
       <div class="card col-12">
@@ -221,12 +235,6 @@ footer b{color:var(--green-600)}
 
   <!-- ================= PER CAPITA ================= -->
   <section class="panel" id="panel-percapita">
-    <div class="filterbar">
-      <div class="filter-title"><span class="bar"></span>Filtros</div>
-      <div class="fgroup"><label>Año</label><select id="p-ano"></select></div>
-      <div class="fgroup"><label>Mes</label><select id="p-mes"></select></div>
-      <button class="btn-clear" id="p-clear">Limpiar filtros</button>
-    </div>
     <div class="kpi-grid" id="p-kpi"></div>
     <div class="grid">
       <div class="card col-7">
@@ -254,12 +262,6 @@ footer b{color:var(--green-600)}
 
   <!-- ================= TIEMPOS ================= -->
   <section class="panel" id="panel-tiempos">
-    <div class="filterbar">
-      <div class="filter-title"><span class="bar"></span>Filtros</div>
-      <div class="fgroup"><label>Año</label><select id="t-ano"></select></div>
-      <div class="fgroup"><label>Mes</label><select id="t-mes"></select></div>
-      <button class="btn-clear" id="t-clear">Limpiar filtros</button>
-    </div>
     <div class="kpi-grid" id="t-kpi"></div>
     <div class="grid">
       <div class="card col-8">
@@ -591,7 +593,10 @@ function renderAll(){renderVolumen();renderPer();renderTie();}
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-  t.classList.add('active');document.getElementById('panel-'+t.dataset.tab).classList.add('active');
+  document.querySelectorAll('.fbar').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('panel-'+t.dataset.tab).classList.add('active');
+  document.getElementById('fb-'+t.dataset.tab).classList.add('active');
 }));
 ['v-ano','v-mes','v-dia'].forEach(id=>document.getElementById(id).addEventListener('change',renderVolumen));
 ['p-ano','p-mes'].forEach(id=>document.getElementById(id).addEventListener('change',renderPer));
